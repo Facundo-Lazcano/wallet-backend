@@ -6,10 +6,10 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 
 const indexRouter = require('./routes/index')
-const ingresosRouter = require('./routes/ingresos')
-const gastosRouter = require('./routes/gastos')
 
 const app = express()
+
+require('./database')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -22,8 +22,6 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
-app.use('/ingresos', ingresosRouter)
-app.use('/gastos', gastosRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
