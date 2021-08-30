@@ -1,15 +1,24 @@
 const { User } = require('../database')
 const bcrypt = require('bcryptjs')
-const passport = require('passport')
 const jwt = require('jsonwebtoken')
 
 const postRegister = async (req, res) => {
-  let { email, password } = req.body
+  let { name, email, password } = req.body
   const hash = await bcrypt.hash(password, 10)
   password = hash
   try {
-    const register = await User.create({ email, password })
-    res.json(register)
+    const register = await User.create({ name, email, password })
+    const token = jwt.sign(
+      {
+        email: register.dataValues.email,
+        userId: register.dataValues.id
+      },
+      'secret',
+      (err, token) => {
+        if (err) throw err
+        res.json({ name, token })
+      }
+    )
   } catch (error) {
     console.log(error)
   }
@@ -31,7 +40,8 @@ const postLogin = async (req, res) => {
         'secret',
         (err, token) => {
           res.json({
-            token: token
+            name: user.name,
+            token
           })
         }
       )
@@ -40,7 +50,7 @@ const postLogin = async (req, res) => {
 }
 
 const getLogout = (req, res, next) => {
-  req.logout()
+  req.userId = 0
   res.redirect('/login')
 }
 

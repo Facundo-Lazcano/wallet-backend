@@ -11,19 +11,19 @@ const {
 const { errorHandler, requireAuth } = require('../middlewares')
 
 /* GET home page - all movements of that user. */
-router.get('/', requireAuth, getMovements)
+router.get('/movements', requireAuth, getMovements)
 
 // GET movement by id
-router.get('/:id', requireAuth, getMovementById)
+router.get('/movements/:id', requireAuth, getMovementById)
 
 // POST movements
-router.post('/new', requireAuth, addMovement)
+router.post('/movements/new', requireAuth, addMovement)
 
 // UPDATE movements
-router.put('/:id/edit', requireAuth, editMovement)
+router.put('/movements/:id/edit', requireAuth, editMovement)
 
 // DESTROY movement
-router.delete('/:id/delete', requireAuth, deleteMovement)
+router.delete('/movements/:id/delete', requireAuth, deleteMovement)
 
 // GET /register
 router.get('/register', (req, res) => res.send('GET /register'))
@@ -39,8 +39,8 @@ router.get('/login', (req, res, next) => {
 // POST /login
 router.post('/login', errorHandler(postLogin))
 
-// GET /logout
-router.get('/logout', errorHandler(getLogout))
+// post /logout
+router.post('/logout', errorHandler(getLogout))
 
 // GET /forgot
 router.get('/forgot', (req, res, next) => {

@@ -23,8 +23,7 @@ const addMovement = async (req, res, next) => {
     category
   })
   res.json({
-    message: 'Movement created',
-    movement: movement
+    movement
   })
 }
 
