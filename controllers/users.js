@@ -1,6 +1,7 @@
 const { User } = require('../database')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const session = require('express-session')
 
 const postRegister = async (req, res) => {
   let { name, email, password } = req.body
@@ -49,13 +50,12 @@ const postLogin = async (req, res) => {
   }
 }
 
-const getLogout = (req, res, next) => {
-  req.userId = 0
-  res.redirect('/login')
+const postLogout = (req, res, next) => {
+  res.json({})
 }
 
 module.exports = {
   postRegister,
   postLogin,
-  getLogout
+  postLogout
 }

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { postRegister, postLogin, getLogout } = require('../controllers/users')
+const { postRegister, postLogin, postLogout } = require('../controllers/users')
 const {
   getMovements,
   getMovementById,
@@ -40,7 +40,7 @@ router.get('/login', (req, res, next) => {
 router.post('/login', errorHandler(postLogin))
 
 // post /logout
-router.post('/logout', errorHandler(getLogout))
+router.post('/logout', errorHandler(postLogout))
 
 // GET /forgot
 router.get('/forgot', (req, res, next) => {

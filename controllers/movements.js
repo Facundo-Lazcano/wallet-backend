@@ -29,14 +29,14 @@ const addMovement = async (req, res, next) => {
 
 const editMovement = async (req, res, next) => {
   const { amount, description, category } = req.body
-  await Movements.update(
+  const movement = await Movements.update(
     { amount, description, category },
     {
       where: { id: req.params.id }
     }
   )
   res.json({
-    message: 'Movement updated'
+    movement
   })
 }
 
